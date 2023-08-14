@@ -14,13 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::prefix('/v1')->group(function () {
+    Route::prefix('stores')->middleware([])->group(function () {
+        Route::controller(StoreController::class)->prefix('/')->group(function () {
+            Route::get('/', 'index');
+            Route::post('/create', 'store');
+        });
+    });
 
-// Route::get('/index', [PostController::class, 'index']);
-// Route::post('/store', [PostController::class, 'store']);
+    Route::prefix('/employees')->middleware([])->group(function () {
 
-Route::controller(StoreController::class)->prefix('/stores')->group(function () {
-    Route::post('/create', 'store');
+    });
+
+    Route::prefix('/accounts')->middleware([])->group(function () {
+
+    });
 });
