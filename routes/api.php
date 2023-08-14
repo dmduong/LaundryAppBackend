@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\PostController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 // Route::get('/index', [PostController::class, 'index']);
-Route::post('/store', [PostController::class, 'store']);
+// Route::post('/store', [PostController::class, 'store']);
+
+Route::controller(StoreController::class)->prefix('/stores')->group(function () {
+    Route::post('/create', 'store');
+});
