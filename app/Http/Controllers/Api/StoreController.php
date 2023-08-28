@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CreateStoreRequest;
+use App\Http\Resources\GetAllStoreResource;
 use App\Services\StoreService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,7 +24,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $result = $this->storeService->getAllStore();
+        return response()->json(GetAllStoreResource::collection($result), Response::HTTP_OK);
     }
 
     /**
