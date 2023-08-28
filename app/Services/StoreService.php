@@ -1,24 +1,24 @@
 <?php
 namespace App\Services;
 
-use App\Repositories\StoreEloquentRepository;
+use App\Interfaces\StoreEloquentRepositoryInterface;
 
 class StoreService
 {
-    protected StoreEloquentRepository $storeEloquentRepository;
+    protected StoreEloquentRepositoryInterface $storeEloquentRepository;
     
-    public function __construct(StoreEloquentRepository $storeEloquentRepository)
+    public function __construct(StoreEloquentRepositoryInterface $storeEloquentRepository)
     {
         $this->storeEloquentRepository = $storeEloquentRepository;
     }
 
     public function createStore($data)
     {
-        return $this->storeEloquentRepository->create($data);
+        return $this->storeEloquentRepository->storeDatas($data);
     }
 
     public function getAllStore()
     {
-        return $this->storeEloquentRepository->getAll();
+        return $this->storeEloquentRepository->getDataAlls();
     }
 }

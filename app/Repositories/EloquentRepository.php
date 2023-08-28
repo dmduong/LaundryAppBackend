@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
-abstract class EloquentRepository
+use App\Interfaces\EloquentRepositoryInterface;
+
+abstract class EloquentRepository implements EloquentRepositoryInterface
 {
     /**
      * @var \Illuminate\Database\Eloquent\Model

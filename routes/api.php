@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/v1')->group(function () {
+Route::prefix('/')->group(function () {
     Route::prefix('stores')->middleware([])->group(function () {
         Route::controller(StoreController::class)->prefix('/')->group(function () {
             Route::get('/', 'index');
