@@ -14,11 +14,11 @@ class StoreService
 
     public function createStore($data)
     {
-        return $this->storeEloquentRepository->storeDatas($data);
+        return $this->storeEloquentRepository->create($data);
     }
 
-    public function getAllStore()
+    public function getAll()
     {
-        return $this->storeEloquentRepository->getDataAlls();
+        return $this->storeEloquentRepository->getAll();
     }
 }
