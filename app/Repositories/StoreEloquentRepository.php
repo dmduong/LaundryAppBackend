@@ -15,14 +15,4 @@ class StoreEloquentRepository extends EloquentRepository implements StoreEloquen
     {
         return StoreModel::class;
     }
-
-    public function getDataAlls()
-    {
-        return $this->model->query()->get();
-    }
-
-    public function storeDatas($data)
-    {
-        return $this->model->query()->create($data);
-    }
 }

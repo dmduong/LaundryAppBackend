@@ -24,7 +24,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $result = $this->storeService->getAllStore();
+        $result = $this->storeService->getAll();
+
         return response()->json(GetAllStoreResource::collection($result), Response::HTTP_OK);
     }
 
