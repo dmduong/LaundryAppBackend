@@ -27,4 +27,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof ResourceNotFoundException) {
+            return response()->json([
+                'error' => $exception->getResourceType(),
+                'message' => $exception->getMessage()
+            ], 404);
+        }
+
+        return parent::render($request, $exception);
+    }
 }

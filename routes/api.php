@@ -18,6 +18,7 @@ Route::prefix(config('app.version'))->group(function () {
     Route::prefix('stores')->middleware([])->group(function () {
         Route::controller(StoreController::class)->prefix('/')->group(function () {
             Route::get('/', 'index');
+            Route::get('/{store_id}/show', 'show');
             Route::post('/create', 'store');
         });
     });
