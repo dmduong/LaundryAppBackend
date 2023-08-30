@@ -15,4 +15,9 @@ class StoreEloquentRepository extends EloquentRepository implements StoreEloquen
     {
         return StoreModel::class;
     }
+
+    public function show(int $id)
+    {
+        return $this->find($id); 
+    }
 }

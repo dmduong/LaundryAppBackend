@@ -7,7 +7,7 @@ use App\Http\Resources\GetAllStoreResource;
 use App\Services\StoreService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class StoreController extends Controller
 {
@@ -42,16 +42,19 @@ class StoreController extends Controller
      */
     public function store(CreateStoreRequest $request)
     {
-        $result = $this->storeService->createStore($request->validated());
-        return response()->json($result, Response::HTTP_CREATED);
+        $this->storeService->createStore($request->validated());
+
+        return response()->json([], Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $result = $this->storeService->show($id);
+
+        return response()->json(new GetAllStoreResource($result), Response::HTTP_OK);
     }
 
     /**

@@ -22,7 +22,7 @@ class CreateStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'db_store_number' => 'required|unique:stores',
+            'db_store_number' => 'unique:stores',
             'db_store_name' => 'required',
             'db_store_phone' => 'required|unique:stores',
             'db_store_address' => 'required',
