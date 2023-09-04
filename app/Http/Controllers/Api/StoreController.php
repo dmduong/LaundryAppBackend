@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CreateStoreRequest;
+use App\Http\Requests\SearchStoreRequest;
 use App\Http\Resources\GetAllStoreResource;
 use App\Services\StoreService;
 use Illuminate\Http\Request;
@@ -22,9 +23,9 @@ class StoreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SearchStoreRequest $request)
     {
-        $result = $this->storeService->getAll();
+        $result = $this->storeService->searchStore($request->validated());
 
         return response()->json(GetAllStoreResource::collection($result), Response::HTTP_OK);
     }
@@ -42,6 +43,12 @@ class StoreController extends Controller
      */
     public function store(CreateStoreRequest $request)
     {
+
+        $parser = new \WhichBrowser\Parser($request->userAgent());
+        $browser = $parser->browser->toString(); // Get the browser name
+        $version = $parser->browser->getVersion(); // Get the browser version
+        $platform = $parser->os->toString(); // Get the operating system name
+
         $this->storeService->createStore($request->validated());
 
         return response()->json([], Response::HTTP_CREATED);

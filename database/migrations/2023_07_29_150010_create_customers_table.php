@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->date('db_customer_birthday')->nullable();
             $table->text('db_customer_address')->nullable();
             $table->string('db_customer_phone')->unique()->nullable();
+            $table->string('db_customer_email')->unique()->nullable();
             $table->text('db_customer_image')->nullable();
             $table->integer('db_customer_status')->nullable();
             $table->string('db_customer_created_at')->nullable()->default(Carbon::now()->timestamp);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CustomerModel extends Model
 {
@@ -31,6 +32,7 @@ class CustomerModel extends Model
         'db_customer_birthday',
         'db_customer_address',
         'db_customer_phone',
+        'db_customer_email',
         'db_customer_image',
         'db_customer_status',
         'db_customer_created_at',
@@ -38,4 +40,9 @@ class CustomerModel extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function customer(): HasOne
+    {
+        return $this->hasOne(CustomerModel::class, 'db_customer_id', 'id');
+    }
 }

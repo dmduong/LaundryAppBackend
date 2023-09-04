@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
-class AccountModel extends Model
+class AccountModel extends Authenticatable implements JWTSubject
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
 
     protected $table = 'accounts';
 
@@ -17,6 +20,9 @@ class AccountModel extends Model
      * @var string
      */
     protected $primaryKey = 'id';
+
+    protected $username = 'db_account_name';
+    protected $password = 'db_account_password';
 
     /**
      * The attributes that are mass assignable.
@@ -39,4 +45,39 @@ class AccountModel extends Model
         'created_at',
         'updated_at'
     ];
+
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public function store(): BelongsTo
+    {
+        return $this->belongsTo(StoreModel::class, 'db_store_id', 'id');
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(CustomerModel::class, 'db_customer_id', 'id');
+    }
+
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(EmployeeModel::class, 'db_employee_id', 'id');
+    }
 }

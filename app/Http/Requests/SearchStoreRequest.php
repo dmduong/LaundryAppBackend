@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class CreateStoreRequest extends FormRequest
+class SearchStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +22,10 @@ class CreateStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'db_store_number' => 'unique:stores',
-            'db_store_name' => 'required',
-            'db_store_phone' => 'required|unique:stores',
-            'db_account_password' => ['required', 'min:6', 'max:10', 'regex:/^[A-Za-z0-9$.\-_]+$/'],
-            'db_store_email' => 'required|unique:stores',
-            'db_store_address' => 'required',
+            'db_store_number' => 'nullable|max:100',
+            'db_store_name' => 'nullable',
+            'db_store_phone' => 'nullable|max:11',
+            'db_store_address' => 'nullable|max:255',
         ];
     }
 }

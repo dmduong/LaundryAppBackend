@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->integer('db_employee_gender')->nullable()->default(1)->comment('0: girl, 1: boy');
             $table->date('db_employee_birthday')->nullable();
             $table->string('db_employee_phone')->nullable()->unique();
+            $table->string('db_employee_email')->nullable()->unique();
             $table->text('db_employee_image')->nullable();
             $table->text('db_employee_address')->nullable();
             $table->integer('db_employee_status')->nullable();
