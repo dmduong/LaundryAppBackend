@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 trait UniqueCodeTrait
@@ -12,7 +13,7 @@ trait UniqueCodeTrait
 
         $lastCode = DB::table($table)
             ->when(!is_null($columnDate), function ($query) use ($columnDate) {
-                $query->whereDate($columnDate, now()->timestamp);
+                $query->whereRaw('DATE(FROM_UNIXTIME('.$columnDate.')) = ?', [Carbon::now()->toDateString()]);
             })
             ->orderBy('id', 'desc')
             ->value($column);

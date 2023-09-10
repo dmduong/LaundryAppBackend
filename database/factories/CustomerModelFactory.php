@@ -30,6 +30,7 @@ class CustomerModelFactory extends Factory
             'db_customer_birthday' => Carbon::create($year, rand(1, 12), rand(1, 29), 00, 00, 00),
             'db_customer_address' => fake()->address(),
             'db_customer_phone' => rand(0000000000, 9999999999),
+            'db_customer_email' => fake()->email(),
             'db_customer_image' => fake()->imageUrl(),
             'db_customer_status' => null,
             'db_customer_created_at' => Carbon::now()->timestamp,

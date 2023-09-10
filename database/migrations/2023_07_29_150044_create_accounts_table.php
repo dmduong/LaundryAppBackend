@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('db_customer_id')->nullable();
             $table->string('db_account_name')->unique();
             $table->string('db_account_password');
-            $table->string('db_account_token')->nullable();
-            $table->string('db_account_refresh_token')->nullable();
+            $table->text('db_account_token')->nullable();
+            $table->text('db_account_refresh_token')->nullable();
             $table->string('db_account_device')->nullable();
             $table->integer('db_account_status')->nullable()->default(1)->comment('1: Active, 2: not active, 3: block');
             $table->string('db_account_created_at')->nullable()->default(Carbon::now()->timestamp);

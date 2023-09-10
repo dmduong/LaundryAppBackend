@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\StoreController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,10 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(AccountController::class)->prefix(config('app.version') . '/')->group(function () {
+    Route::post('/login', 'login');
+});
+
 Route::prefix(config('app.version'))->group(function () {
-    Route::prefix('stores')->middleware([])->group(function () {
+    Route::prefix('stores')->middleware(['StoreAndEmployee'])->group(function () {
         Route::controller(StoreController::class)->prefix('/')->group(function () {
-            Route::get('/', 'index');
+            Route::post('/', 'index');
             Route::get('/{store_id}/show', 'show');
             Route::post('/create', 'store');
         });

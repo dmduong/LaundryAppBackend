@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StoreModel extends Authenticatable
+class StoreModel extends Model
 {
     use HasFactory;
     protected $table = 'stores';
@@ -27,6 +27,7 @@ class StoreModel extends Authenticatable
         'db_store_number',
         'db_store_name',
         'db_store_phone',
+        'db_store_email',
         'db_store_image',
         'db_store_address',
         'db_store_status',
@@ -35,4 +36,9 @@ class StoreModel extends Authenticatable
         'created_at',
         'updated_at'
     ];
+
+    public function account(): HasOne
+    {
+        return $this->hasOne(AccountModel::class, 'db_store_id', 'id');
+    }
 }

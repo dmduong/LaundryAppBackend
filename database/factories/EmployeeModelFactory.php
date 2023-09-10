@@ -29,6 +29,7 @@ class EmployeeModelFactory extends Factory
             'db_employee_birthday' => Carbon::create($year, rand(1, 12), rand(1, 29), 00, 00, 00),
             'db_employee_address' => fake()->address(),
             'db_employee_phone' => rand(0000000000, 9999999999),
+            'db_employee_email' => fake()->email(),
             'db_employee_image' => fake()->imageUrl(),
             'db_employee_status' => null,
             'db_employee_created_at' => Carbon::now()->timestamp,

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class EmployeeModel extends Model
 {
@@ -30,6 +31,7 @@ class EmployeeModel extends Model
         'db_employee_gender',
         'db_employee_birthday',
         'db_employee_phone',
+        'db_employee_email',
         'db_employee_image',
         'db_employee_address',
         'db_employee_status',
@@ -38,4 +40,9 @@ class EmployeeModel extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function employee(): HasOne
+    {
+        return $this->hasOne(EmployeeModel::class, 'db_employee_id', 'id');
+    }
 }
