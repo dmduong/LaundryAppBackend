@@ -15,13 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(AccountController::class)->prefix(config('app.version') . '/')->group(function () {
+    Route::post('/login', 'login');
+});
+
 Route::prefix(config('app.version'))->group(function () {
-
-    Route::controller(AccountController::class)->prefix('/login')->group(function () {
-        Route::post('/login', 'login');
-    })->name('login');
-
-    Route::prefix('stores')->middleware([])->group(function () {
+    Route::prefix('stores')->middleware(['StoreAndEmployee'])->group(function () {
         Route::controller(StoreController::class)->prefix('/')->group(function () {
             Route::post('/', 'index');
             Route::get('/{store_id}/show', 'show');

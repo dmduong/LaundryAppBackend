@@ -70,7 +70,7 @@ return [
         ],
 
         'accounts' => [
-            'driver' => 'database',
+            'driver' => 'eloquent',
             'model' => App\Models\AccountModel::class,
         ],
     ],

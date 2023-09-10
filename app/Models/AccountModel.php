@@ -22,7 +22,6 @@ class AccountModel extends Authenticatable implements JWTSubject
     protected $primaryKey = 'id';
 
     protected $username = 'db_account_name';
-    protected $password = 'db_account_password';
 
     /**
      * The attributes that are mass assignable.
