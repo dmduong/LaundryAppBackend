@@ -5,6 +5,7 @@ use App\Exceptions\ResourceNotFoundException;
 use App\Interfaces\AccountEloquentRepositoryInterFace;
 use App\Interfaces\StoreEloquentRepositoryInterface;
 use App\Traits\UniqueCodeTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 

@@ -20,10 +20,10 @@ Route::controller(AccountController::class)->prefix(config('app.version') . '/')
 });
 
 Route::prefix(config('app.version'))->group(function () {
-    Route::prefix('stores')->middleware(['StoreAndEmployee'])->group(function () {
+    Route::prefix('stores')->middleware(['Store'])->group(function () {
         Route::controller(StoreController::class)->prefix('/')->group(function () {
             Route::post('/', 'index');
-            Route::get('/{store_id}/show', 'show');
+            Route::get('/show', 'show');
             Route::post('/create', 'store');
         });
     });
@@ -32,7 +32,7 @@ Route::prefix(config('app.version'))->group(function () {
 
     });
 
-    Route::prefix('/accounts')->middleware([])->group(function () {
+    Route::prefix('/customers')->middleware([])->group(function () {
 
     });
 });

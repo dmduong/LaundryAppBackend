@@ -43,12 +43,6 @@ class StoreController extends Controller
      */
     public function store(CreateStoreRequest $request)
     {
-
-        $parser = new \WhichBrowser\Parser($request->userAgent());
-        $browser = $parser->browser->toString(); // Get the browser name
-        $version = $parser->browser->getVersion(); // Get the browser version
-        $platform = $parser->os->toString(); // Get the operating system name
-
         $this->storeService->createStore($request->validated());
 
         return response()->json([], Response::HTTP_CREATED);
@@ -57,9 +51,11 @@ class StoreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $result = $this->storeService->show($id);
+        $storeId = $request->user()->db_store_id;
+
+        $result = $this->storeService->show($storeId);
 
         return response()->json(new GetAllStoreResource($result), Response::HTTP_OK);
     }
