@@ -30,7 +30,7 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof ResourceNotFoundException) {
+        if ($exception instanceof ErrorsException) {
             return response()->json([
                 'error' => $exception->getResourceType(),
                 'message' => $exception->getMessage()
