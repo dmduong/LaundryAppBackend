@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AccountController;
+use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\StoreController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,10 @@ Route::prefix(config('app.version'))->group(function () {
         Route::controller(StoreController::class)->prefix('/')->group(function () {
             Route::post('/', 'index');
             Route::get('/show', 'show');
+            Route::post('/create', 'store');
+        });
+
+        Route::controller(EmployeeController::class)->prefix('employees')->group(function () {
             Route::post('/create', 'store');
         });
     });
