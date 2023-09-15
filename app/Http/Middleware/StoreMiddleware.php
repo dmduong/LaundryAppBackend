@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Exceptions\ResourceNotFoundException;
+use App\Exceptions\ErrorsException;
 use App\Models\AccountModel;
 use Closure;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class StoreMiddleware
                 ->where('db_account_token', $token)->first();
 
             if (is_null($accountLogin)) {
-                throw new ResourceNotFoundException("Not authorized", 'not_authorized');
+                throw new ErrorsException("Not authorized", 'not_authorized');
             }
 
             $request->setUserResolver(function () use ($accountLogin) {
@@ -46,7 +46,7 @@ class StoreMiddleware
             });
 
         } else {
-            throw new ResourceNotFoundException("Token is required !", 'token_required');
+            throw new ErrorsException("Token is required !", 'token_required');
         }
 
         return $next($request);

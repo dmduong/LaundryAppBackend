@@ -1,11 +1,10 @@
 <?php
 namespace App\Services;
 
-use App\Exceptions\ResourceNotFoundException;
+use App\Exceptions\ErrorsException;
 use App\Interfaces\AccountEloquentRepositoryInterFace;
 use App\Interfaces\StoreEloquentRepositoryInterface;
 use App\Traits\UniqueCodeTrait;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -28,12 +27,12 @@ class AccountService
         $checkLogin = $this->accountEloquentRepository->checkUserLogin($requestBody);
 
         if (is_null($checkLogin)) {
-            throw new ResourceNotFoundException("The account is incorrect !", 'account_is_incorrect');
+            throw new ErrorsException("The account is incorrect !", 'account_is_incorrect');
         }
 
         $checkPass = Hash::check($requestBody['db_account_password'], $checkLogin->db_account_password);
         if (!$checkPass) {
-            throw new ResourceNotFoundException("The password is incorrect !", 'password_is_incorrect');
+            throw new ErrorsException("The password is incorrect !", 'password_is_incorrect');
         }
 
         $token = $this->createNewToken($checkLogin);

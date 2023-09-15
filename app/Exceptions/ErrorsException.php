@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class ResourceNotFoundException extends Exception
+class ErrorsException extends Exception
 {
     protected $resourceType;
 

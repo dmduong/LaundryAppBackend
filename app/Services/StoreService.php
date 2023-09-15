@@ -4,7 +4,7 @@ namespace App\Services;
 use App\Interfaces\AccountEloquentRepositoryInterFace;
 use App\Interfaces\StoreEloquentRepositoryInterface;
 use App\Traits\UniqueCodeTrait;
-use App\Exceptions\ResourceNotFoundException;
+use App\Exceptions\ErrorsException;
 use Illuminate\Support\Facades\Hash;
 
 class StoreService
@@ -63,7 +63,7 @@ class StoreService
         $result = $this->storeEloquentRepository->show($id);
 
         if (is_null($result)) {
-            throw new ResourceNotFoundException(
+            throw new ErrorsException(
                 "The store not found.",
                 'store_not_found'
             );
