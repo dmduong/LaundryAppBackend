@@ -35,7 +35,9 @@ Route::prefix(config('app.version'))->group(function () {
     });
 
     Route::prefix('/employees')->middleware(['employee'])->group(function () {
-
+        Route::controller(EmployeeController::class)->prefix('me')->group(function () {
+            Route::get('/', 'show');
+        });
     });
 
     Route::prefix('/customers')->middleware([])->group(function () {

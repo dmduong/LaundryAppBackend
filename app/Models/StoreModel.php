@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -40,5 +41,10 @@ class StoreModel extends Model
     public function account(): HasOne
     {
         return $this->hasOne(AccountModel::class, 'db_store_id', 'id');
+    }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(EmployeeModel::class, 'db_store_id', 'id');
     }
 }

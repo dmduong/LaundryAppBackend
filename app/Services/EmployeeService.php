@@ -5,6 +5,7 @@ use App\Interfaces\AccountEloquentRepositoryInterFace;
 use App\Interfaces\EmployeeEloquentRepositoryInterface;
 use App\Traits\UniqueCodeTrait;
 use Illuminate\Support\Facades\Hash;
+use Whoops\Exception\ErrorException;
 
 class EmployeeService
 {
@@ -54,6 +55,17 @@ class EmployeeService
                 'db_account_created_at' => now()->timestamp,
                 'db_account_updated_at' => now()->timestamp,
             ]);
+        }
+
+        return $employee;
+    }
+
+    public function getInforEmployee($employeeId)
+    {
+        $employee = $this->employeeEloquentRepository->find($employeeId);
+
+        if (is_null($employee)) {
+            throw new ErrorException('The employee not found', 'employee_not_found');
         }
 
         return $employee;

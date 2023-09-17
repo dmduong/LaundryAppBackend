@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class EmployeeModel extends Model
@@ -44,5 +45,10 @@ class EmployeeModel extends Model
     public function employee(): HasOne
     {
         return $this->hasOne(EmployeeModel::class, 'db_employee_id', 'id');
+    }
+
+    public function store(): BelongsTo
+    {
+        return $this->belongsTo(StoreModel::class, 'db_store_id', 'id');
     }
 }

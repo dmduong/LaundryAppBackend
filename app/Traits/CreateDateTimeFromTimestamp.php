@@ -8,11 +8,11 @@ trait CreateDateTimeFromTimestamp
 {
     public function timestampToDateTime(string $timestamp): string
     {
-        return Carbon::createFromTimestamp($timestamp)->format('Y/m/d H:i:s');
+        return $timestamp ? Carbon::createFromTimestamp($timestamp)->format('Y/m/d H:i:s') : null;
     }
 
     public function timestampToDate(string $timestamp): string
     {
-        return Carbon::createFromTimestamp($timestamp)->format('Y/m/d');
+        return $timestamp ? Carbon::createFromTimestamp($timestamp)->format('Y/m/d') : null;
     }
 }
