@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class StoreMiddleware
+
+class EmployeeMiddleware
 {
     /**
      * Handle an incoming request.
@@ -25,12 +26,12 @@ class StoreMiddleware
 
             $accountLogin = AccountModel::select(
                 'id',
-                'db_store_id',
+                'db_employee_id',
                 'db_account_name',
                 'db_account_device',
                 'db_account_status'
             )->with(
-                    ['store:id,db_store_number,db_store_name,db_store_phone,db_store_email,db_store_image,db_store_address']
+                    ['employee:id,db_store_id,db_employee_number,db_employee_name']
                 )->where('id', $payLoad['sub'])
                 ->where('db_account_token', $token)->first();
 
@@ -38,7 +39,7 @@ class StoreMiddleware
                 throw new ErrorsException("Not authorized", 'not_authorized');
             }
 
-            if (is_null($accountLogin->store)) {
+            if (is_null($accountLogin->employee)) {
                 throw new ErrorsException('User login is not valid', 'login_not_valid');
             }
 

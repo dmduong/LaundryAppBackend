@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\StoreController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,7 @@ Route::controller(AccountController::class)->prefix(config('app.version') . '/')
 });
 
 Route::prefix(config('app.version'))->group(function () {
-    Route::prefix('stores')->middleware(['Store'])->group(function () {
+    Route::prefix('stores')->middleware(['store'])->group(function () {
         Route::controller(StoreController::class)->prefix('/')->group(function () {
             Route::post('/', 'index');
             Route::get('/show', 'show');
@@ -33,7 +34,7 @@ Route::prefix(config('app.version'))->group(function () {
         });
     });
 
-    Route::prefix('/employees')->middleware([])->group(function () {
+    Route::prefix('/employees')->middleware(['employee'])->group(function () {
 
     });
 
