@@ -64,8 +64,17 @@ class StoreService
         return $result;
     }
 
-    public function update($store_id)
+    public function update($storeId, $requestBody)
     {
-        return $this->storeEloquentRepository->delete($store_id);
+        $store = $this->storeEloquentRepository->find($storeId);
+
+        if (is_null($store)) {
+            throw new ErrorsException(
+                'The store not found',
+                'store_not_found'
+            );
+        }
+
+        return $store->update($requestBody);
     }
 }

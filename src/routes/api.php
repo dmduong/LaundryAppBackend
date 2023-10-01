@@ -22,6 +22,7 @@ Route::controller(AccountController::class)->prefix(config('app.version') . '/')
 
 Route::prefix(config('app.version') . '/administrators')->middleware([])->group(function () {
     Route::controller(StoreController::class)->prefix('/stores')->group(function () {
+        Route::post('/', 'index');
         Route::post('/create', 'store');
     });
 });
@@ -29,8 +30,7 @@ Route::prefix(config('app.version') . '/administrators')->middleware([])->group(
 Route::prefix(config('app.version'))->group(function () {
     Route::prefix('stores')->middleware(['store'])->group(function () {
         Route::controller(StoreController::class)->prefix('/')->group(function () {
-            Route::post('/', 'index');
-            Route::delete('/', 'update');
+            Route::put('/', 'update');
             Route::get('/show', 'show');
         });
 

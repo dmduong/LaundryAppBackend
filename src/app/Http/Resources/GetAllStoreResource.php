@@ -24,6 +24,7 @@ class GetAllStoreResource extends JsonResource
             'db_store_name' => $this->db_store_name,
             'db_store_phone' => $this->db_store_phone,
             'db_store_image' => $this->db_store_image,
+            'db_store_email' => $this->db_store_email,
             'db_store_address' => $this->db_store_address,
             'created_at' => $this->created_at ? $this->timestampToDateTime($this->created_at) : null,
             'updated_at' => $this->updated_at ? $this->timestampToDateTime($this->updated_at) : null
