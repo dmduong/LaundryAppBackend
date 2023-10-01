@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\CreateStoreRequest;
 use App\Http\Requests\SearchStoreRequest;
+use App\Http\Requests\UpdateStoreRequest;
 use App\Http\Resources\GetAllStoreResource;
 use App\Services\StoreService;
 use Illuminate\Http\Request;
@@ -71,9 +72,9 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(UpdateStoreRequest $request)
     {
-        $this->storeService->update($request->user()->db_store_id);
+        $this->storeService->update($request->user()->db_store_id, $request->validated());
 
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
