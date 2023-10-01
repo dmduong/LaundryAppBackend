@@ -82,8 +82,10 @@ class StoreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        $this->storeService->delete($id);
+
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }
