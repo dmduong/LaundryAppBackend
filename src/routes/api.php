@@ -24,6 +24,7 @@ Route::prefix(config('app.version') . '/administrators')->middleware([])->group(
     Route::controller(StoreController::class)->prefix('/stores')->group(function () {
         Route::post('/', 'index');
         Route::post('/create', 'store');
+        Route::delete('/{store_id}', 'destroy');
     });
 });
 
