@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StoreModel extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
     protected $table = 'stores';
+    protected $dateFormat = 'U';
+    public $timestamps = true;
 
     /**
      * The primary key associated with the table.
@@ -32,10 +37,9 @@ class StoreModel extends Model
         'db_store_image',
         'db_store_address',
         'db_store_status',
-        'db_store_created_at',
-        'db_store_updated_at',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
     public function account(): HasOne

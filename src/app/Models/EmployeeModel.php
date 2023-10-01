@@ -6,12 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmployeeModel extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'employees';
+    protected $dateFormat = 'U';
+    public $timestamps = true;
 
     /**
      * The primary key associated with the table.
@@ -36,10 +40,9 @@ class EmployeeModel extends Model
         'db_employee_image',
         'db_employee_address',
         'db_employee_status',
-        'db_employee_created_at',
-        'db_employee_updated_at',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
     public function employee(): HasOne

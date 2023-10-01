@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CustomerModel extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'customers';
+    protected $dateFormat = 'U';
+    public $timestamps = true;
 
     /**
      * The primary key associated with the table.
@@ -35,10 +39,9 @@ class CustomerModel extends Model
         'db_customer_email',
         'db_customer_image',
         'db_customer_status',
-        'db_customer_created_at',
-        'db_customer_updated_at',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
     public function customer(): HasOne

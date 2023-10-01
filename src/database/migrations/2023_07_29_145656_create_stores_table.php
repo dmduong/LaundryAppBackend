@@ -1,15 +1,14 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nette\Utils\Random;
 
 return new class extends Migration {
     /**
      * Run the migrations.
      */
+    
     public function up(): void
     {
         Schema::create('stores', function (Blueprint $table) {
@@ -21,10 +20,11 @@ return new class extends Migration {
             $table->text('db_store_image')->nullable();
             $table->text('db_store_address')->nullable();
             $table->integer('db_store_status')->nullable();
-            $table->string('db_store_created_at')->nullable()->default(Carbon::now()->timestamp);
-            $table->string('db_store_updated_at')->nullable()->default(Carbon::now()->timestamp);
-            $table->timestamps();
+            $table->softDeletesTz();
+            $table->timestampsTz();
         });
+
+        DB::statement('ALTER TABLE stores MODIFY created_at VARCHAR(255), MODIFY updated_at VARCHAR(255), MODIFY deleted_at VARCHAR(255)');
     }
 
     /**

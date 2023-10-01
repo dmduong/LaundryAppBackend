@@ -29,13 +29,7 @@ class StoreService
             'db_store_email' => $data['db_store_email'],
             'db_store_address' => $data['db_store_address'],
         ], [
-            'db_store_number' => $this->generateUniqueCode(
-                'stores',
-                'db_store_number',
-                'db_store_created_at'
-            ),
-            'db_store_created_at' => now()->timestamp,
-            'db_store_updated_at' => now()->timestamp,
+            'db_store_number' => $this->codeNumber()
         ]);
 
         $result = $this->storeEloquentRepository->create($dataStore);
@@ -45,8 +39,6 @@ class StoreService
                 'db_store_id' => $result->id,
                 'db_account_name' => $result->db_store_phone,
                 'db_account_password' => Hash::make($data['db_account_password']),
-                'db_account_created_at' => now()->timestamp,
-                'db_account_updated_at' => now()->timestamp,
             ];
 
             return $this->accountEloquentRepository->storeAccount($dataAccount);
@@ -70,5 +62,10 @@ class StoreService
         }
 
         return $result;
+    }
+
+    public function update($store_id)
+    {
+        return $this->storeEloquentRepository->delete($store_id);
     }
 }
