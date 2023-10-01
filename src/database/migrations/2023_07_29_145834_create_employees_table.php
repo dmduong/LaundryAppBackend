@@ -23,11 +23,12 @@ return new class extends Migration {
             $table->text('db_employee_image')->nullable();
             $table->text('db_employee_address')->nullable();
             $table->integer('db_employee_status')->nullable();
-            $table->string('db_employee_created_at')->nullable()->default(Carbon::now()->timestamp);
-            $table->string('db_employee_updated_at')->nullable()->default(Carbon::now()->timestamp);
-            $table->timestamps();
+            $table->softDeletesTz();
+            $table->timestampsTz();
             $table->foreign('db_store_id')->references('id')->on('stores');
         });
+
+        DB::statement('ALTER TABLE employees MODIFY created_at VARCHAR(255), MODIFY updated_at VARCHAR(255), MODIFY deleted_at VARCHAR(255)');
     }
 
     /**

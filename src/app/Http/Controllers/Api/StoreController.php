@@ -71,9 +71,11 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $this->storeService->update($request->user()->db_store_id);
+
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
     /**

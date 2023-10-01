@@ -22,13 +22,14 @@ return new class extends Migration {
             $table->text('db_account_refresh_token')->nullable();
             $table->string('db_account_device')->nullable();
             $table->integer('db_account_status')->nullable()->default(1)->comment('1: Active, 2: not active, 3: block');
-            $table->string('db_account_created_at')->nullable()->default(Carbon::now()->timestamp);
-            $table->string('db_account_updated_at')->nullable()->default(Carbon::now()->timestamp);
+            $table->softDeletesTz();
+            $table->timestampsTz();
             $table->foreign('db_store_id')->references('id')->on('stores');
             $table->foreign('db_employee_id')->references('id')->on('employees');
             $table->foreign('db_customer_id')->references('id')->on('customers');
-            $table->timestamps();
         });
+
+        DB::statement('ALTER TABLE accounts MODIFY created_at VARCHAR(255), MODIFY updated_at VARCHAR(255), MODIFY deleted_at VARCHAR(255)');
     }
 
     /**

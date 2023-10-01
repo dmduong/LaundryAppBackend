@@ -10,10 +10,9 @@ trait UniqueCodeTrait
     public function generateUniqueCode(string $table, string $column, string $columnDate = null): string
     {
         $datePart = now()->format('ymd');
-
         $lastCode = DB::table($table)
             ->when(!is_null($columnDate), function ($query) use ($columnDate) {
-                $query->whereRaw('DATE(FROM_UNIXTIME('.$columnDate.')) = ?', [Carbon::now()->toDateString()]);
+                $query->whereRaw('DATE(CONVERT_TZ(FROM_UNIXTIME(' . $columnDate . '), "UTC", "Asia/Ho_Chi_Minh")) = ?', [Carbon::now()->toDateString()]);
             })
             ->orderBy('id', 'desc')
             ->value($column);
@@ -21,5 +20,11 @@ trait UniqueCodeTrait
         $sequenceNumber = $lastCode ? intval(substr($lastCode, -4)) + 1 : 1;
 
         return $datePart . str_pad($sequenceNumber, 4, '0', STR_PAD_LEFT);
+    }
+
+    public function codeNumber()
+    {
+        $datePart = now()->format('ymd');
+        return $datePart . '-' . rand(100000, 999999);
     }
 }

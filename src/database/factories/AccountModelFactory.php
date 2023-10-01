@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\StoreModel;
+use App\Traits\UniqueCodeTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,8 @@ class AccountModelFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    use UniqueCodeTrait;
     public function definition(): array
     {
         $store = StoreModel::query()->inRandomOrder()->first();
@@ -29,9 +32,7 @@ class AccountModelFactory extends Factory
             'db_account_token' => null,
             'db_account_refresh_token' => null,
             'db_account_device' => '172.160.16.' . rand(1, 100),
-            'db_account_status' => rand(1, 3),
-            'db_account_created_at' => Carbon::now()->timestamp,
-            'db_account_updated_at' => Carbon::now()->timestamp,
+            'db_account_status' => rand(1, 3)
         ];
     }
 }

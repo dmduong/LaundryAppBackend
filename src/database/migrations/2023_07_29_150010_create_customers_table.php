@@ -23,11 +23,12 @@ return new class extends Migration {
             $table->string('db_customer_email')->unique()->nullable();
             $table->text('db_customer_image')->nullable();
             $table->integer('db_customer_status')->nullable();
-            $table->string('db_customer_created_at')->nullable()->default(Carbon::now()->timestamp);
-            $table->string('db_customer_updated_at')->nullable()->default(Carbon::now()->timestamp);
-            $table->timestamps();
+            $table->softDeletesTz();
+            $table->timestampsTz();
             $table->foreign('db_store_id')->references('id')->on('stores');
         });
+
+        DB::statement('ALTER TABLE customers MODIFY created_at VARCHAR(255), MODIFY updated_at VARCHAR(255), MODIFY deleted_at VARCHAR(255)');
     }
 
     /**

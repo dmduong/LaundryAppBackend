@@ -25,8 +25,8 @@ class GetAllStoreResource extends JsonResource
             'db_store_phone' => $this->db_store_phone,
             'db_store_image' => $this->db_store_image,
             'db_store_address' => $this->db_store_address,
-            'db_store_created_at' => $this->db_store_created_at ? $this->timestampToDateTime($this->db_store_created_at) : null,
-            'db_store_updated_at' => $this->db_store_updated_at ? $this->timestampToDateTime($this->db_store_updated_at) : null
+            'created_at' => $this->created_at ? $this->timestampToDateTime($this->created_at) : null,
+            'updated_at' => $this->updated_at ? $this->timestampToDateTime($this->updated_at) : null
         ];
     }
 }
