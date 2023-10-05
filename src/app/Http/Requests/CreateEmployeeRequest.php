@@ -22,10 +22,9 @@ class CreateEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'db_employee_number' => 'unique:employees',
             'db_employee_name' => 'required|max:50',
             'db_employee_gender' => 'nullable|integer',
-            'db_employee_birthday' => 'nullable|date_format:'.config("custom.dateFormat").'',
+            'db_employee_birthday' => 'nullable|date_format:' . config("custom.dateFormat"),
             'db_employee_phone' => 'required|unique:employees|max:12',
             'db_employee_image' => 'nullable',
             'db_employee_email' => 'nullable|unique:employees',

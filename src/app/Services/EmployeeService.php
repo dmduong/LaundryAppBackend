@@ -1,19 +1,18 @@
 <?php
 namespace App\Services;
 
+use App\Enums\EmployeeStatusEnum;
+use App\Exceptions\ErrorsException;
 use App\Interfaces\AccountEloquentRepositoryInterFace;
 use App\Interfaces\EmployeeEloquentRepositoryInterface;
 use App\Traits\UniqueCodeTrait;
 use Illuminate\Support\Facades\Hash;
-use Whoops\Exception\ErrorException;
 
 class EmployeeService
 {
     use UniqueCodeTrait;
     protected EmployeeEloquentRepositoryInterface $employeeEloquentRepository;
-
     protected AccountEloquentRepositoryInterFace $accountEloquentRepository;
-
     public function __construct(
         EmployeeEloquentRepositoryInterface $employeeEloquentRepository,
         AccountEloquentRepositoryInterFace $accountEloquentRepository
@@ -24,36 +23,23 @@ class EmployeeService
 
     public function createEmployee($requestBody, $storeId)
     {
-        $accountEmployee = $requestBody['db_account_name'];
-        $passwordEmployee = $requestBody['db_account_password'];
-
-        unset(
-            $requestBody['db_account_name'], 
-            $requestBody['db_account_password'],
-            $requestBody['db_employee_number'],
-        );
-
-        $number = $this->generateUniqueCode('employees', 'db_employee_number', 'db_employee_created_at');
-
-        $employee = $this->employeeEloquentRepository->create(
-            array_merge(
-                [
-                    'db_employee_number' => $number,
-                    'db_store_id' => $storeId,
-                    'db_employee_created_at' => now()->timestamp,
-                    'db_employee_updated_at' => now()->timestamp,
-                ],
-                 $requestBody
-                )
-        );
+        $employee = $this->employeeEloquentRepository->create([
+            'db_store_id' => $storeId,
+            'db_employee_number' => $this->codeNumber(),
+            'db_employee_name' => $requestBody['db_employee_name'],
+            'db_employee_gender' => $requestBody['db_employee_gender'],
+            'db_employee_email' => $requestBody['db_employee_email'],
+            'db_employee_address' => $requestBody['db_employee_address'],
+            'db_employee_birthday' => $requestBody['db_employee_birthday'],
+            'db_employee_phone' => $requestBody['db_employee_phone'],
+            'db_employee_status' => EmployeeStatusEnum::Active,
+        ]);
 
         if (!is_null($employee)) {
-            $this->accountEloquentRepository->create([
+            $employee->account()->create([
                 'db_employee_id' => $employee->id,
-                'db_account_name' => $accountEmployee,
-                'db_account_password' => Hash::make($passwordEmployee),
-                'db_account_created_at' => now()->timestamp,
-                'db_account_updated_at' => now()->timestamp,
+                'db_account_name' => $requestBody['db_account_name'],
+                'db_account_password' => Hash::make($requestBody['db_account_password'])
             ]);
         }
 
@@ -65,7 +51,7 @@ class EmployeeService
         $employee = $this->employeeEloquentRepository->find($employeeId);
 
         if (is_null($employee)) {
-            throw new ErrorException('The employee not found', 'employee_not_found');
+            throw new ErrorsException('The employee not found', 'employee_not_found');
         }
 
         return $employee;

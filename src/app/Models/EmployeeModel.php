@@ -45,9 +45,9 @@ class EmployeeModel extends Model
         'deleted_at'
     ];
 
-    public function employee(): HasOne
+    public function account(): HasOne
     {
-        return $this->hasOne(EmployeeModel::class, 'db_employee_id', 'id');
+        return $this->hasOne(AccountModel::class, 'db_employee_id', 'id');
     }
 
     public function store(): BelongsTo
