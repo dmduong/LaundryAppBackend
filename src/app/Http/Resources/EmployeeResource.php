@@ -29,8 +29,8 @@ class EmployeeResource extends JsonResource
             'db_employee_phone' => $this->db_employee_phone,
             'db_employee_email' => $this->db_employee_email,
             'db_employee_address' => $this->db_employee_address,
-            'db_employee_created_at' => $this->db_employee_created_at ? $this->timestampToDateTime($this->db_employee_created_at) : null,
-            'db_employee_updated_at' => $this->db_employee_updated_at ? $this->timestampToDateTime($this->db_employee_updated_at) : null,
+            'created_at' => $this->timestampToDateTime($this->created_at),
+            'updated_at' => $this->timestampToDateTime($this->updated_at),
         ];
     }
 }

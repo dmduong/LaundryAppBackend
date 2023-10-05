@@ -24,7 +24,6 @@ class InfoEmployeeResource extends JsonResource
             'id' => $this->id,
             'db_employee_number' => $this->db_employee_number,
             'db_employee_name' => $this->db_employee_name,
-            'db_store_image' => $this->db_store_image,
             'db_employee_gender' => $this->db_employee_gender,
             'db_employee_birthday' => $this->db_employee_birthday,
             'db_employee_phone' => $this->db_employee_phone,
@@ -32,8 +31,8 @@ class InfoEmployeeResource extends JsonResource
             'db_employee_image' => $this->db_employee_image,
             'db_employee_address' => $this->db_employee_address,
             'db_employee_status' => $this->db_employee_status,
-            'db_employee_created_at' => $this->timestampToDateTime($this->db_employee_created_at),
-            'db_employee_updated_at' => $this->timestampToDateTime($this->db_employee_updated_at),
+            'created_at' => $this->timestampToDateTime($this->created_at),
+            'updated_at' => $this->timestampToDateTime($this->updated_at),
             'db_store' => [
                 'id' => $store->id,
                 'db_store_number' => $store->db_store_number,
