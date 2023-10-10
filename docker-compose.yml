@@ -28,7 +28,6 @@ services:
     tty: true
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./src:/var/www/html/
       - ./nginx/conf.d/:/etc/nginx/conf.d/
@@ -37,20 +36,22 @@ services:
  
   #MySQL Service
   db:
-    image: mysql:5.7.32
+    image: mysql:8.0
     container_name: db
     restart: unless-stopped
     tty: true
     ports:
       - "3306:3306"
     environment:
+      DB_HOST: db
       MYSQL_DATABASE: laundryappdatabase
       MYSQL_ROOT_PASSWORD: laundryappdatabase
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - dbdata:/var/lib/mysql/
+      - ./dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
+      - ./mysql/database.sql:/docker-entrypoint-initdb.d/1.sql
     networks:
       - app-network
  
