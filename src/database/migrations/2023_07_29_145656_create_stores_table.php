@@ -23,8 +23,6 @@ return new class extends Migration {
             $table->softDeletesTz();
             $table->timestampsTz();
         });
-
-        DB::statement('ALTER TABLE stores MODIFY created_at VARCHAR(255), MODIFY updated_at VARCHAR(255), MODIFY deleted_at VARCHAR(255)');
     }
 
     /**

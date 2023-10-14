@@ -5,12 +5,13 @@ use App\Enums\EmployeeStatusEnum;
 use App\Exceptions\ErrorsException;
 use App\Interfaces\AccountEloquentRepositoryInterFace;
 use App\Interfaces\EmployeeEloquentRepositoryInterface;
+use App\Traits\Paginations;
 use App\Traits\UniqueCodeTrait;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeeService
 {
-    use UniqueCodeTrait;
+    use UniqueCodeTrait, Paginations;
     protected EmployeeEloquentRepositoryInterface $employeeEloquentRepository;
     protected AccountEloquentRepositoryInterFace $accountEloquentRepository;
     public function __construct(
@@ -55,5 +56,13 @@ class EmployeeService
         }
 
         return $employee;
+    }
+
+    public function searchEmployee($requestBody, $storeId)
+    {
+        return $this->paginations(
+            $this->employeeEloquentRepository->searchEmployee($requestBody, $storeId),
+            $requestBody
+        );
     }
 }

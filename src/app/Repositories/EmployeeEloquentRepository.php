@@ -15,4 +15,13 @@ class EmployeeEloquentRepository extends EloquentRepository implements EmployeeE
     {
         return EmployeeModel::class;
     }
+
+    public function searchEmployee($requestBody, $storeId)
+    {
+        return $this->model
+            ->where('db_store_id', $storeId)
+            ->when(!empty($requestBody['db_employee_name']), function ($query) use ($requestBody) {
+                $query->where('db_employee_name', 'LIKE', '%' . $requestBody['db_employee_name'] . '%');
+            });
+    }
 }

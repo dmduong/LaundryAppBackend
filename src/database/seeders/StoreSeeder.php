@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\AccountModel;
 use App\Models\StoreModel;
+use Database\Factories\AccountModelFactory;
 use Illuminate\Database\Seeder;
 
 class StoreSeeder extends Seeder
@@ -12,6 +14,12 @@ class StoreSeeder extends Seeder
      */
     public function run(): void
     {
-        StoreModel::factory()->count(6)->create();
+        StoreModel::factory()->count(1)->create()->each(
+            function ($store) {
+                AccountModel::factory()->create([
+                    'db_store_id' => $store->id
+                ]);
+            }
+        );
     }
 }

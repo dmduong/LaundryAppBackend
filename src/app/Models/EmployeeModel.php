@@ -14,7 +14,6 @@ class EmployeeModel extends Model
     use SoftDeletes;
 
     protected $table = 'employees';
-    protected $dateFormat = 'U';
     public $timestamps = true;
 
     /**
