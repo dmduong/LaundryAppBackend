@@ -3,7 +3,7 @@ namespace App\Helpers;
 
 class Helper
 {
-    public static function paginate($result, $options = []): array
+    public static function paginations($result, $options = []): array
     {
         return [
             'total' => $result->total(),

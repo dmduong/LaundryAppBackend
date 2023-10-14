@@ -47,7 +47,6 @@ class StoreEloquentRepository extends EloquentRepository implements StoreEloquen
                 function ($query) use ($conditions) {
                     $query->where('db_store_address', 'LIKE', '%' . $conditions['db_store_address'] . '%');
                 }
-            )
-            ->get();
+            );
     }
 }

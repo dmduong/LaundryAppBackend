@@ -28,7 +28,7 @@ class EmployeeController extends Controller
 
         $result = $this->employeeService->searchEmployee($request->validated(), $idStore);
 
-        return response()->json(Helper::paginate(SearchEmployeeResource::collection($result)), Response::HTTP_OK);
+        return response()->json(Helper::paginations(SearchEmployeeResource::collection($result)), Response::HTTP_OK);
     }
 
     /**

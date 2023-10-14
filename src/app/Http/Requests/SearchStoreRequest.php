@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SearchStoreRequest extends FormRequest
 {
@@ -26,6 +27,10 @@ class SearchStoreRequest extends FormRequest
             'db_store_name' => 'nullable',
             'db_store_phone' => 'nullable|max:11',
             'db_store_address' => 'nullable|max:255',
+            'order_by' => ['nullable', 'array', Rule::in(['id', 'db_store_number', 'db_store_name', 'created_at'])],
+            'sort' => ['nullable', 'string', Rule::in(['desc', 'asc'])],
+            'page' => ['nullable', 'integer'],
+            'limit' => ['nullable', 'integer'],
         ];
     }
 }
