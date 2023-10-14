@@ -3,13 +3,14 @@ namespace App\Services;
 
 use App\Interfaces\AccountEloquentRepositoryInterFace;
 use App\Interfaces\StoreEloquentRepositoryInterface;
+use App\Traits\Paginations;
 use App\Traits\UniqueCodeTrait;
 use App\Exceptions\ErrorsException;
 use Illuminate\Support\Facades\Hash;
 
 class StoreService
 {
-    use UniqueCodeTrait;
+    use UniqueCodeTrait, Paginations;
     protected StoreEloquentRepositoryInterface $storeEloquentRepository;
     protected AccountEloquentRepositoryInterFace $accountEloquentRepository;
 
@@ -47,7 +48,10 @@ class StoreService
 
     public function searchStore($conditions)
     {
-        return $this->storeEloquentRepository->searchStore($conditions);
+        return $this->paginations(
+            $this->storeEloquentRepository->searchStore($conditions),
+            $conditions
+        );
     }
 
     public function show($id)

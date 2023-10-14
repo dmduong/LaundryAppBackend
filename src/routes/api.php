@@ -23,7 +23,7 @@ Route::controller(AccountController::class)->prefix(config('app.version') . '/')
 
 Route::prefix(config('app.version') . '/administrators')->middleware([])->group(function () {
     Route::controller(StoreController::class)->prefix('/stores')->group(function () {
-        Route::post('/', 'index');
+        Route::post('/search', 'index');
         Route::post('/create', 'store');
         Route::delete('/{store_id}', 'destroy');
     });
@@ -41,7 +41,7 @@ Route::prefix(config('app.version'))->group(function () {
         });
 
         Route::controller(StoresEmployee::class)->prefix('employees')->group(function () {
-            Route::post('/', 'index');
+            Route::post('/search', 'index');
         });
     });
 

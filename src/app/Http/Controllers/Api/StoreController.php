@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\Helper;
 use App\Http\Requests\CreateStoreRequest;
 use App\Http\Requests\SearchStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
@@ -28,7 +29,10 @@ class StoreController extends Controller
     {
         $result = $this->storeService->searchStore($request->validated());
 
-        return response()->json(GetAllStoreResource::collection($result), Response::HTTP_OK);
+        return response()->json(
+            Helper::paginations(GetAllStoreResource::collection($result)),
+            Response::HTTP_OK
+        );
     }
 
     /**
