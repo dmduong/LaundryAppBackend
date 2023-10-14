@@ -24,7 +24,6 @@ class AccountModel extends Authenticatable implements JWTSubject
     protected $primaryKey = 'id';
 
     protected $username = 'db_account_name';
-    protected $dateFormat = 'U';
     public $timestamps = true;
 
     /**

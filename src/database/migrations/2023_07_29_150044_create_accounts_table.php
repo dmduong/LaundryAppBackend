@@ -28,8 +28,6 @@ return new class extends Migration {
             $table->foreign('db_employee_id')->references('id')->on('employees');
             $table->foreign('db_customer_id')->references('id')->on('customers');
         });
-
-        DB::statement('ALTER TABLE accounts MODIFY created_at VARCHAR(255), MODIFY updated_at VARCHAR(255), MODIFY deleted_at VARCHAR(255)');
     }
 
     /**

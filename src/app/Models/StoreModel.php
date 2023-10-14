@@ -14,7 +14,6 @@ class StoreModel extends Model
     use SoftDeletes;
 
     protected $table = 'stores';
-    protected $dateFormat = 'U';
     public $timestamps = true;
 
     /**

@@ -101,5 +101,4 @@ abstract class EloquentRepository implements EloquentRepositoryInterface
 
         return false;
     }
-
 }

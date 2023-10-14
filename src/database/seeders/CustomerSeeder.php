@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\AccountModel;
 use App\Models\CustomerModel;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\StoreModel;
 use Illuminate\Database\Seeder;
 
 class CustomerSeeder extends Seeder
@@ -13,6 +14,15 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
-        CustomerModel::factory()->count(10)->create();
+        $store = StoreModel::first();
+        CustomerModel::factory()->count(200)->create([
+            'db_store_id' => $store->id
+        ])->each(
+            function ($customer) {
+                AccountModel::factory()->create([
+                    'db_customer_id' => $customer->id
+                ]);
+            }
+        );
     }
 }

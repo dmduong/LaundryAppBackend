@@ -27,8 +27,6 @@ return new class extends Migration {
             $table->timestampsTz();
             $table->foreign('db_store_id')->references('id')->on('stores');
         });
-
-        DB::statement('ALTER TABLE customers MODIFY created_at VARCHAR(255), MODIFY updated_at VARCHAR(255), MODIFY deleted_at VARCHAR(255)');
     }
 
     /**

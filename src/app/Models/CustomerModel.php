@@ -13,7 +13,6 @@ class CustomerModel extends Model
     use SoftDeletes;
 
     protected $table = 'customers';
-    protected $dateFormat = 'U';
     public $timestamps = true;
 
     /**

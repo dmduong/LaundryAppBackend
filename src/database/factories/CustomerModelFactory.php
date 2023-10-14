@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Enums\StatusCustomerEnums;
 use App\Models\StoreModel;
 use App\Traits\UniqueCodeTrait;
+use BenSampo\Enum\Rules\Enum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -32,10 +34,10 @@ class CustomerModelFactory extends Factory
             'db_customer_gender' => rand(1, 2),
             'db_customer_birthday' => Carbon::create($year, rand(1, 12), rand(1, 29), 00, 00, 00),
             'db_customer_address' => fake()->address(),
-            'db_customer_phone' => $this->faker->phoneNumber(),
-            'db_customer_email' => fake()->email(),
+            'db_customer_phone' => $this->faker->unique()->phoneNumber(),
+            'db_customer_email' => fake()->unique()->email(),
             'db_customer_image' => fake()->imageUrl(),
-            'db_customer_status' => null
+            'db_customer_status' => fake()->randomElement([StatusCustomerEnums::Active, StatusCustomerEnums::Block])
         ];
     }
 }
