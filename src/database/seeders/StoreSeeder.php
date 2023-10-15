@@ -14,12 +14,6 @@ class StoreSeeder extends Seeder
      */
     public function run(): void
     {
-        StoreModel::factory()->count(1)->create()->each(
-            function ($store) {
-                AccountModel::factory()->create([
-                    'db_store_id' => $store->id
-                ]);
-            }
-        );
+        StoreModel::factory()->count(1)->create();
     }
 }

@@ -80,4 +80,14 @@ class AccountController extends Controller
 
         return response()->json(new AccountResource($result), Response::HTTP_OK);
     }
+
+    public function logout(Request $request)
+    {
+        $this->accountService->logout($request->user()->account_id);
+
+        return response()->json([
+            'status' => 200,
+            "messages" => "Logout successfull !"
+        ], Response::HTTP_OK);
+    }
 }

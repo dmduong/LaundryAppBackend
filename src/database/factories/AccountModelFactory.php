@@ -22,7 +22,6 @@ class AccountModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'db_store_id' => null,
             'db_employee_id' => null,
             'db_customer_id' => null,
             'db_account_name' => fake()->unique()->userName(),

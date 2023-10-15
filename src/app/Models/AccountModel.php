@@ -22,7 +22,6 @@ class AccountModel extends Authenticatable implements JWTSubject
      * @var string
      */
     protected $primaryKey = 'id';
-
     protected $username = 'db_account_name';
     public $timestamps = true;
 
@@ -33,7 +32,6 @@ class AccountModel extends Authenticatable implements JWTSubject
      */
 
     protected $fillable = [
-        'db_store_id',
         'db_employee_id',
         'db_customer_id',
         'db_account_name',
@@ -65,11 +63,6 @@ class AccountModel extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
-    }
-
-    public function store(): BelongsTo
-    {
-        return $this->belongsTo(StoreModel::class, 'db_store_id', 'id');
     }
 
     public function customer(): BelongsTo

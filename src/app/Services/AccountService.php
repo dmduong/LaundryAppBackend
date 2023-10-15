@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Enums\StatusAccountEnums;
 use App\Exceptions\ErrorsException;
 use App\Interfaces\AccountEloquentRepositoryInterFace;
 use App\Interfaces\StoreEloquentRepositoryInterface;
@@ -35,6 +36,10 @@ class AccountService
             throw new ErrorsException("The password is incorrect !", 'password_is_incorrect');
         }
 
+        if ($checkLogin->db_account_status === StatusAccountEnums::Block) {
+            throw new ErrorsException('The account is blocked', 'account_blocked');
+        }
+
         $token = $this->createNewToken($checkLogin);
 
         $refreshToken = $this->refreshToken($checkLogin);
@@ -60,5 +65,19 @@ class AccountService
     protected function refreshToken($user)
     {
         return $this->createNewToken($user);
+    }
+
+    public function logout($accountId)
+    {
+        $account = $this->accountEloquentRepository->find($accountId);
+
+        if (is_null($account)) {
+            throw new ErrorsException("The account not found", "account_not_found");
+        }
+
+        return $account->update([
+            'db_account_token' => null,
+            'db_account_refresh_token' => null
+        ]);
     }
 }

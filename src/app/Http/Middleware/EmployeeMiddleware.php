@@ -24,23 +24,22 @@ class EmployeeMiddleware
         if (!is_null($token)) {
             $payLoad = JWTAuth::getPayload($token);
 
-            $accountLogin = AccountModel::select(
-                'id',
-                'db_employee_id',
-                'db_account_name',
-                'db_account_device',
-                'db_account_status'
-            )->with(
-                    ['employee:id,db_store_id,db_employee_number,db_employee_name']
-                )->where('id', $payLoad['sub'])
-                ->where('db_account_token', $token)->first();
+            $accountLogin = AccountModel::query()
+                ->select(
+                    'accounts.id as account_id',
+                    'accounts.db_account_name as account_name',
+                    'accounts.db_employee_id as user_id',
+                    'employees.db_store_id as store_id',
+                    'employees.db_employee_phone as user_phone',
+                    'employees.db_employee_email as user_email',
+                )
+                ->join('employees', 'accounts.db_employee_id', 'employees.id')
+                ->where('accounts.id', $payLoad['sub'])
+                ->where('accounts.db_account_token', $token)
+                ->first();
 
             if (is_null($accountLogin)) {
                 throw new ErrorsException("Not authorized", 'not_authorized');
-            }
-
-            if (is_null($accountLogin->employee)) {
-                throw new ErrorsException('User login is not valid', 'login_not_valid');
             }
 
             $request->setUserResolver(function () use ($accountLogin) {
