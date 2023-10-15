@@ -56,10 +56,8 @@ class StoreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function show(Request $request, $storeId)
     {
-        $storeId = $request->user()->db_store_id;
-
         $result = $this->storeService->show($storeId);
 
         return response()->json(new GetAllStoreResource($result), Response::HTTP_OK);
@@ -76,9 +74,9 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStoreRequest $request)
+    public function update(UpdateStoreRequest $request, $storeId)
     {
-        $this->storeService->update($request->user()->db_store_id, $request->validated());
+        $this->storeService->update($storeId, $request->validated());
 
         return response()->json([], Response::HTTP_NO_CONTENT);
     }

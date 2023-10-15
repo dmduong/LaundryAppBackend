@@ -13,7 +13,6 @@ return new class extends Migration {
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('db_store_id')->nullable();
             $table->unsignedBigInteger('db_employee_id')->nullable();
             $table->unsignedBigInteger('db_customer_id')->nullable();
             $table->string('db_account_name')->unique();
@@ -24,7 +23,6 @@ return new class extends Migration {
             $table->integer('db_account_status')->nullable()->default(1)->comment('1: Active, 2: not active, 3: block');
             $table->softDeletesTz();
             $table->timestampsTz();
-            $table->foreign('db_store_id')->references('id')->on('stores');
             $table->foreign('db_employee_id')->references('id')->on('employees');
             $table->foreign('db_customer_id')->references('id')->on('customers');
         });

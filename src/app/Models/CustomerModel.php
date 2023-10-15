@@ -11,7 +11,6 @@ class CustomerModel extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
     protected $table = 'customers';
     public $timestamps = true;
 

@@ -23,8 +23,7 @@ class AccountResource extends JsonResource
                 'id' => $this->id,
                 'db_account_name' => $this->db_account_name
             ],
-            'db_store' => !is_null($this->store) ? $this->getStore($this->store) : null,
-            'db_employee' => !is_null($this->employee) ? $this->getEmployee($this->employee) : null,
+            'db_employee' => $this->getEmployee($this->employee),
             'token' => [
                 'db_account_token' => $this->db_account_token,
                 'db_account_refresh_token' => $this->db_account_refresh_token,

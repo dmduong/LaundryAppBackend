@@ -23,9 +23,9 @@ class UpdateStoreRequest extends FormRequest
     {
         return [
             'db_store_name' => 'required|max:255|string',
-            'db_store_phone' => 'required|max:11|unique:stores,db_store_phone,' . $this->user()->db_store_id,
+            'db_store_phone' => 'required|max:11|unique:stores,db_store_phone,' . $this->store_id,
             'db_store_address' => 'required|max:255',
-            'db_store_email' => 'required|max:255|unique:stores,db_store_email,' . $this->user()->db_store_id,
+            'db_store_email' => 'required|max:255|unique:stores,db_store_email,' . $this->store_id,
         ];
     }
 }

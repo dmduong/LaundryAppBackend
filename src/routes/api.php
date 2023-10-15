@@ -23,6 +23,8 @@ Route::controller(AccountController::class)->prefix(config('app.version') . '/')
 
 Route::prefix(config('app.version') . '/administrators')->middleware([])->group(function () {
     Route::controller(StoreController::class)->prefix('/stores')->group(function () {
+        Route::get('/{store_id}', 'show');
+        Route::put('/{store_id}', 'update');
         Route::post('/search', 'index');
         Route::post('/create', 'store');
         Route::delete('/{store_id}', 'destroy');
@@ -30,25 +32,17 @@ Route::prefix(config('app.version') . '/administrators')->middleware([])->group(
 });
 
 Route::prefix(config('app.version'))->group(function () {
-    Route::prefix('stores')->middleware(['store'])->group(function () {
-        Route::controller(StoreController::class)->prefix('/')->group(function () {
-            Route::put('/', 'update');
-            Route::get('/show', 'show');
+    Route::prefix('employees')->middleware(['employee'])->group(function () {
+        Route::controller(EmployeeController::class)->prefix('/me')->group(function () {
+            Route::get('/', 'show');
         });
 
-        Route::controller(EmployeeController::class)->prefix('employees')->group(function () {
+        Route::controller(StoresEmployee::class)->prefix('/')->group(function () {
+            Route::post('/search', 'index');
             Route::post('/create', 'store');
         });
 
-        Route::controller(StoresEmployee::class)->prefix('employees')->group(function () {
-            Route::post('/search', 'index');
-        });
-    });
-
-    Route::prefix('/employees')->middleware(['employee'])->group(function () {
-        Route::controller(EmployeeController::class)->prefix('me')->group(function () {
-            Route::get('/', 'show');
-        });
+        Route::delete('/logout', [AccountController::class, 'logout']);
     });
 
     Route::prefix('/customers')->middleware([])->group(function () {

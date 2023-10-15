@@ -24,9 +24,6 @@ class AccountEloquentRepository extends EloquentRepository implements AccountElo
 
     public function checkUserLogin(array $data)
     {
-        return $this->model
-            ->where('db_account_name', $data['db_account_name'])
-            ->where('db_account_status', StatusAccountEnums::Active)
-            ->first();
+        return $this->model->where('db_account_name', $data['db_account_name'])->first();
     }
 }

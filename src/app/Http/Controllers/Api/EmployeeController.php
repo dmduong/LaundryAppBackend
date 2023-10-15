@@ -38,13 +38,9 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateEmployeeRequest $request)
+    public function store()
     {
-        $storeId = $request->user()->store->id;
-
-        $result = $this->employeeService->createEmployee($request->validated(), $storeId);
-
-        return response()->json(new EmployeeResource($result), Response::HTTP_CREATED);
+        //
     }
 
     /**
@@ -52,7 +48,7 @@ class EmployeeController extends Controller
      */
     public function show(Request $request)
     {
-        $employeeId = $request->user()->employee->id;
+        $employeeId = $request->user()->user_id;
 
         $result = $this->employeeService->getInforEmployee($employeeId);
 
