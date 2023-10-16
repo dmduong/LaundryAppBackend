@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\RolePermission\RoleController;
 use App\Http\Controllers\Api\Stores\EmployeeController as StoresEmployee;
 use App\Http\Controllers\Api\StoreController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,10 @@ Route::prefix(config('app.version'))->group(function () {
         Route::controller(StoresEmployee::class)->prefix('/')->group(function () {
             Route::post('/search', 'index');
             Route::post('/create', 'store');
+        });
+
+        Route::controller(RoleController::class)->prefix('roles')->group(function () {
+            Route::post('/search', 'index');
         });
 
         Route::delete('/logout', [AccountController::class, 'logout']);

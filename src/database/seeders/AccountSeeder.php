@@ -4,10 +4,8 @@ namespace Database\Seeders;
 
 use App\Enums\StatusAccountEnums;
 use App\Models\AccountModel;
-use App\Models\CustomerModel;
-use App\Models\EmployeeModel;
-use App\Models\StoreModel;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class AccountSeeder extends Seeder
 {

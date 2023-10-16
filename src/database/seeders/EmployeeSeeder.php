@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\AccountModel;
 use App\Models\EmployeeModel;
 use App\Models\StoreModel;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
