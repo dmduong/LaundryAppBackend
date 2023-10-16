@@ -15,4 +15,11 @@ class PermissionRepository extends EloquentRepository implements PermissionEloqu
     {
         return Permission::class;
     }
+
+    public function getAllPermission(array $conditions)
+    {
+        return $this->model->when(!empty($conditions['name']), function ($query) use ($conditions) {
+            $query->where('name', 'LIKE', '%' . $conditions['name'] . '%');
+        });
+    }
 }

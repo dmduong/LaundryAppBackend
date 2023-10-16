@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\RolePermission;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RolePermission\AssignPermissionRequest;
 use App\Http\Requests\RolePermission\SearchRoleRequest;
+use App\Http\Resources\RoleHasPermissionResource;
 use App\Http\Resources\RoleResource;
 use App\Services\RoleService;
 use Illuminate\Http\Request;
@@ -75,5 +77,22 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function roleHasPermission(int $roleId): object
+    {
+        $result = $this->roleService->find($roleId);
+
+        return response()->json(new RoleHasPermissionResource($result), Response::HTTP_OK);
+    }
+
+    public function roleAssignPermission(AssignPermissionRequest $request, $roleId)
+    {
+        $this->roleService->assignPermission($request->validated(), $roleId);
+
+        return response()->json([
+            'stautus' => 200,
+            'message' => "Assign role to permission successfull !"
+        ], Response::HTTP_OK);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\RolePermission\PermissionController;
 use App\Http\Controllers\Api\RolePermission\RoleController;
 use App\Http\Controllers\Api\Stores\EmployeeController as StoresEmployee;
 use App\Http\Controllers\Api\StoreController;
@@ -44,6 +45,12 @@ Route::prefix(config('app.version'))->group(function () {
         });
 
         Route::controller(RoleController::class)->prefix('roles')->group(function () {
+            Route::post('/search', 'index');
+            route::get('{role_id}/has-permission', 'roleHasPermission');
+            route::post('{role_id}/assign-permission', 'roleAssignPermission');
+        });
+
+        Route::controller(PermissionController::class)->prefix('permissions')->group(function () {
             Route::post('/search', 'index');
         });
 

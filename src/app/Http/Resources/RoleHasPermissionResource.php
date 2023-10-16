@@ -6,7 +6,7 @@ use App\Traits\CreateDateTimeFromTimestamp;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleResource extends JsonResource
+class RoleHasPermissionResource extends JsonResource
 {
 
     use CreateDateTimeFromTimestamp;    
@@ -24,6 +24,7 @@ class RoleResource extends JsonResource
             'guard_name' => $this->guard_name,
             'created_at' => $this->timestampToDateTime($this->created_at),
             'updated_at' => $this->timestampToDateTime($this->updated_at),
+            'role_has_permissions' => PermissionResource::collection($this->permissions)
         ];
     }
 }

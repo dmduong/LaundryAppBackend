@@ -15,4 +15,9 @@ class PermissionService
     ) {
         $this->permissionEloquentRepository = $permissionEloquentRepository;
     }
+
+    public function getAllPermission(array $conditions)
+    {
+        return $this->paginations($this->permissionEloquentRepository->getAllPermission($conditions), $conditions);
+    }
 }

@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers\Api\RolePermission;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RolePermission\SearchPermissionRequest;
+use App\Http\Resources\PermissionResource;
+use App\Services\PermissionService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PermissionController extends Controller
 {
+    public PermissionService $permissionService;
+    public function __construct(PermissionService $permissionService)
+    {
+        $this->permissionService = $permissionService;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SearchPermissionRequest $request)
     {
-        //
+        $result = $this->permissionService->getAllPermission($request->validated());
+
+        return response()->json(Helper::paginations(PermissionResource::collection($result)), Response::HTTP_OK);
     }
 
     /**

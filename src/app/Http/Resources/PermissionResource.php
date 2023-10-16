@@ -6,7 +6,7 @@ use App\Traits\CreateDateTimeFromTimestamp;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleResource extends JsonResource
+class PermissionResource extends JsonResource
 {
 
     use CreateDateTimeFromTimestamp;    

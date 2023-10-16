@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Exceptions\ErrorsException;
 use App\Interfaces\RoleEloquentRepositoryInterface;
 use App\Traits\Paginations;
 use App\Traits\UniqueCodeTrait;
@@ -19,5 +20,22 @@ class RoleService
     public function getAllRole($conditions)
     {
         return $this->paginations($this->roleEloquentRepository->getAllRole($conditions), $conditions);
+    }
+
+    public function find(int $roleId)
+    {
+        $result = $this->roleEloquentRepository->find($roleId);
+
+        if (is_null($result)) {
+            throw new ErrorsException("The role not found !", "role_not_found");
+        }
+
+        return $result;
+    }
+
+    public function assignPermission(array $conditions, int $roleId)
+    {
+        $result = $this->find($roleId);
+        return $result->syncPermissions($conditions['permission_id']);
     }
 }
