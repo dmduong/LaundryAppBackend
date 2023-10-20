@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\AccountModel;
 use App\Models\StoreModel;
-use Database\Factories\AccountModelFactory;
 use Illuminate\Database\Seeder;
 
 class StoreSeeder extends Seeder

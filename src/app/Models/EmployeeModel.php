@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasRoles;
 
 class EmployeeModel extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasRoles;
     protected $table = 'employees';
     public $timestamps = true;
 

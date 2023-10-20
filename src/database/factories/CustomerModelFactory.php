@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Enums\StatusCustomerEnums;
 use App\Models\StoreModel;
 use App\Traits\UniqueCodeTrait;
-use BenSampo\Enum\Rules\Enum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
