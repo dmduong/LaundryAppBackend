@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\RolePermission;
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RolePermission\SearchPermissionRequest;
+use App\Http\Requests\RolePermission\UpdatePermissionRequest;
 use App\Http\Resources\PermissionResource;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
@@ -46,9 +47,11 @@ class PermissionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $permissionId)
     {
-        //
+        $result = $this->permissionService->find($permissionId);
+
+        return response()->json(new PermissionResource($result), Response::HTTP_OK);
     }
 
     /**
@@ -62,16 +65,20 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatePermissionRequest $request, int $permissionId)
     {
-        //
+        $result = $this->permissionService->update($request->validated(), $permissionId);
+
+        return response()->json(new PermissionResource($result), Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $permissionId)
     {
-        //
+        $result = $this->permissionService->destroy($permissionId);
+
+        return response()->json($result, Response::HTTP_OK);
     }
 }

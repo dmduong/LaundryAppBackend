@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RolePermission\AssignPermissionRequest;
 use App\Http\Requests\RolePermission\SearchRoleRequest;
+use App\Http\Requests\RolePermission\UpdateRoleRequest;
 use App\Http\Resources\RoleHasPermissionResource;
 use App\Http\Resources\RoleResource;
 use App\Services\RoleService;
@@ -50,9 +51,11 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $roleId)
     {
-        //
+        $result = $this->roleService->find($roleId);
+
+        return response()->json(new RoleResource($result), Response::HTTP_OK);
     }
 
     /**
@@ -66,17 +69,20 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRoleRequest $request, string $roleId)
     {
-        //
+        $result = $this->roleService->update($request->validated(), $roleId);
+        return response()->json(new RoleResource($result), Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $roleId)
     {
-        //
+        $result = $this->roleService->destroy($roleId);
+
+        return response()->json($result, Response::HTTP_OK);
     }
 
     public function roleHasPermission(int $roleId): object

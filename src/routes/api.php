@@ -46,12 +46,18 @@ Route::prefix(config('app.version'))->group(function () {
 
         Route::controller(RoleController::class)->prefix('roles')->group(function () {
             Route::post('/search', 'index');
+            Route::get('{role_id}', 'show');
+            Route::put('{role_id}', 'update');
+            Route::delete('{role_id}', 'destroy');
             route::get('{role_id}/has-permission', 'roleHasPermission');
             route::post('{role_id}/assign-permission', 'roleAssignPermission');
         });
 
         Route::controller(PermissionController::class)->prefix('permissions')->group(function () {
             Route::post('/search', 'index');
+            Route::get('{role_id}', 'show');
+            Route::put('{role_id}', 'update');
+            Route::delete('{role_id}', 'destroy');
         });
 
         Route::delete('/logout', [AccountController::class, 'logout']);
