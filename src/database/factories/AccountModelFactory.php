@@ -27,6 +27,8 @@ class AccountModelFactory extends Factory
             'db_account_name' => fake()->unique()->userName(),
             'db_account_password' => Hash::make('x$M5SbXT'),
             'db_account_token' => null,
+            'db_account_code' => null,
+            'db_account_active' => null,
             'db_account_refresh_token' => null,
             'db_account_device' => '172.160.16.' . rand(1, 100),
             'db_account_status' => fake()->randomElement([StatusAccountEnums::Active, StatusAccountEnums::Block])

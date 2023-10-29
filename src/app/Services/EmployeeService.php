@@ -52,7 +52,7 @@ class EmployeeService
         $employee = $this->employeeEloquentRepository->find($employeeId);
 
         if (is_null($employee)) {
-            throw new ErrorsException('The employee not found', 'employee_not_found');
+            throw new ErrorsException('The employee not found');
         }
 
         return $employee;

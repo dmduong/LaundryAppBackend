@@ -32,9 +32,8 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof ErrorsException) {
             return response()->json([
-                'error' => $exception->getResourceType(),
                 'message' => $exception->getMessage()
-            ], 404);
+            ], $exception->getCode());
         }
 
         return parent::render($request, $exception);

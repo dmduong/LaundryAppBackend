@@ -41,7 +41,7 @@ class EmployeeMiddleware
                     ->first();
 
                 if (is_null($accountLogin)) {
-                    throw new ErrorsException("Not authorized", 'not_authorized');
+                    throw new ErrorsException("Not authorized", 400);
                 }
 
                 $request->setUserResolver(function () use ($accountLogin) {
@@ -49,16 +49,14 @@ class EmployeeMiddleware
                 });
 
             } else {
-                throw new ErrorsException("Token is required !", 'token_required');
+                throw new ErrorsException("Token is required !", 400);
             }
         } catch (TokenExpiredException $e) {
             if ($e instanceof TokenExpiredException) {
-                throw new ErrorsException($e->getMessage(), 'token_expired');
+                throw new ErrorsException($e->getMessage(), 400);
             }
         }
-        // catch (ErrorsException $e) {
-        //     throw new ErrorsException($e->getMessage(), $e->getResourceType());
-        // }
+
         return $next($request);
     }
 }

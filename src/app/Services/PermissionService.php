@@ -27,7 +27,7 @@ class PermissionService
         $result = $this->permissionEloquentRepository->find($permissionId);
 
         if (is_null($result)){
-            throw new ErrorsException("The permissions not found.", "permission_not_found");
+            throw new ErrorsException("The permissions not found.");
         }
 
         return $result;

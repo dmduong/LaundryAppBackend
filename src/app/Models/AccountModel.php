@@ -39,6 +39,8 @@ class AccountModel extends Authenticatable implements JWTSubject
         'db_account_token',
         'db_account_refresh_token',
         'db_account_device',
+        'db_account_code',
+        'db_account_active',
         'db_account_status',
         'created_at',
         'updated_at',

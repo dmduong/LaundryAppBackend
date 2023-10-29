@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(AccountController::class)->prefix(config('app.version') . '/')->group(function () {
     Route::post('/login', 'login');
+    Route::post('/register', 'create');
+    Route::post('/verify', 'verify');
 });
 
 Route::prefix(config('app.version') . '/administrators')->middleware([])->group(function () {

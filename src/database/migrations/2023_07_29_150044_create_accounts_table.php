@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->text('db_account_token')->nullable();
             $table->text('db_account_refresh_token')->nullable();
             $table->string('db_account_device')->nullable();
+            $table->string('db_account_code')->nullable()->unique();
+            $table->integer('db_account_active')->nullable()->unique();
             $table->integer('db_account_status')->nullable()->default(1)->comment('1: Active, 2: not active, 3: block');
             $table->softDeletesTz();
             $table->timestampsTz();
