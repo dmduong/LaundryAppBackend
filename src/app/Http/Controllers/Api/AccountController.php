@@ -84,7 +84,14 @@ class AccountController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+    }
+
+    public function destroyVerify($accountId)
+    {
+        $this->accountService->destroyVerify($accountId);
+
+        return response()->json(['message' => "Xóa mã xác thực thành công."], Response::HTTP_OK);
     }
 
     public function login(LoginRequest $request)

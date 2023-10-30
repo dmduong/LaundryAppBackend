@@ -173,4 +173,15 @@ class AccountService
             ]);
         });
     }
+
+    public function destroyVerify($accountId)
+    {
+        $account = $this->accountEloquentRepository->find($accountId);
+
+        if (is_null($account)) {
+            throw new ErrorsException('Tài khoản không tồn tại.', 400);
+        }
+
+        return $account->update(['db_account_code' => null]);
+    }
 }
