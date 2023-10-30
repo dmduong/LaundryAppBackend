@@ -94,6 +94,12 @@ class AccountController extends Controller
         return response()->json(['message' => "Xóa mã xác thực thành công."], Response::HTTP_OK);
     }
 
+    public function updateVerify($accountId)
+    {
+        $this->accountService->updateVerify($accountId);
+        return response()->json(["message" => "Gửi lại mã xác thực thành công."], Response::HTTP_OK);
+    }
+
     public function login(LoginRequest $request)
     {
         $result = $this->accountService->login($request->validated());
