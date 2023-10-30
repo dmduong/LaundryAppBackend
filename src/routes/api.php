@@ -24,6 +24,7 @@ Route::controller(AccountController::class)->prefix(config('app.version') . '/')
     Route::post('/register', 'create');
     Route::post('/verify', 'verify');
     Route::delete('/{account_id}/verify', 'destroyVerify');
+    Route::put('/{account_id}/verify', 'updateVerify');
 });
 
 Route::prefix(config('app.version') . '/administrators')->middleware([])->group(function () {

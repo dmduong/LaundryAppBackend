@@ -174,7 +174,7 @@ class AccountService
         });
     }
 
-    public function destroyVerify($accountId)
+    public function find($accountId)
     {
         $account = $this->accountEloquentRepository->find($accountId);
 
@@ -182,6 +182,39 @@ class AccountService
             throw new ErrorsException('Tài khoản không tồn tại.', 400);
         }
 
+        return $account;
+    }
+
+    public function destroyVerify($accountId)
+    {
+        $account = $this->find($accountId);
+
         return $account->update(['db_account_code' => null]);
+    }
+
+    public function updateVerify($accountId)
+    {
+        try {
+            DB::beginTransaction();
+            $account = $this->find($accountId);
+
+            $code = $this->codeActiveAccount();
+
+            $account->update(['db_account_code' => $code]);
+
+            Mail::to($account->employee->db_employee_email)->send(
+                new SendEmail(
+                    $code,
+                    $account->employee->store->db_store_name,
+                    $account->employee->db_employee_name,
+                    $account->db_account_name
+                )
+            );
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            abort(500, $th->getMessage() . $th->getFile() . $th->getLine());
+        }
     }
 }

@@ -14,17 +14,17 @@ class SendEmail extends Mailable
     use Queueable, SerializesModels;
 
     private $code;
-    private $name;
+    private $store;
     private $account;
     private $employee;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($code, $name, $employee, $account)
+    public function __construct($code, $store, $employee, $account)
     {
         $this->code = $code;
-        $this->name = $name;
+        $this->store = $store;
         $this->account = $account;
         $this->employee = $employee;
     }
@@ -65,7 +65,7 @@ class SendEmail extends Mailable
             ->view('emails.send_email')
             ->with([
                 'code' => $this->code,
-                'name' => $this->name,
+                'store' => $this->store,
                 'account' => $this->account,
                 'employee' => $this->employee,
             ]);
