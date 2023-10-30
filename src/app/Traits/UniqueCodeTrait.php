@@ -24,7 +24,12 @@ trait UniqueCodeTrait
 
     public function codeNumber()
     {
-        $datePart = now()->format('ymd');
-        return $datePart . '-' . rand(100000, 999999);
+        $datePart = now()->format('ymdhis');
+        return $datePart . rand(10000, 99999);
+    }
+
+    public function codeActiveAccount()
+    {
+        return rand(11111, 99999);
     }
 }

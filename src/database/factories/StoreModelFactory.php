@@ -23,9 +23,7 @@ class StoreModelFactory extends Factory
         return [
             'db_store_number' => $this->codeNumber(),
             'db_store_name' => fake()->company(),
-            'db_store_phone' => $this->faker->unique()->phoneNumber(),
             'db_store_image' => fake()->imageUrl(),
-            'db_store_email' => fake()->unique()->email(),
             'db_store_address' => fake()->address(),
             'db_store_status' => fake()->randomElement([StatusStoresEnums::Active, StatusStoresEnums::Block])
         ];

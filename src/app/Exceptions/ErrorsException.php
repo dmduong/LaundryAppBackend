@@ -6,16 +6,8 @@ use Exception;
 
 class ErrorsException extends Exception
 {
-    protected $resourceType;
-
-    public function __construct($message = 'Resource not found.', $resourceType = 'Resource')
+    public function __construct($message = 'Có một lỗi không mong muốn.', $code = 400)
     {
-        parent::__construct($message);
-        $this->resourceType = $resourceType;
-    }
-
-    public function getResourceType()
-    {
-        return $this->resourceType;
+        parent::__construct($message, $code);
     }
 }

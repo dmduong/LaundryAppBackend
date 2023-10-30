@@ -31,8 +31,6 @@ class StoreModel extends Model
     protected $fillable = [
         'db_store_number',
         'db_store_name',
-        'db_store_phone',
-        'db_store_email',
         'db_store_image',
         'db_store_address',
         'db_store_status',

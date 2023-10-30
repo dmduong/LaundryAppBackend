@@ -27,7 +27,7 @@ class RoleService
         $result = $this->roleEloquentRepository->find($roleId);
 
         if (is_null($result)) {
-            throw new ErrorsException("The role not found !", "role_not_found");
+            throw new ErrorsException("The role not found !");
         }
 
         return $result;

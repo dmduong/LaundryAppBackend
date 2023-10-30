@@ -15,8 +15,6 @@ return new class extends Migration {
             $table->id();
             $table->string('db_store_number')->unique();
             $table->string('db_store_name')->nullable();
-            $table->string('db_store_phone')->nullable()->unique();
-            $table->string('db_store_email')->nullable()->unique();
             $table->text('db_store_image')->nullable();
             $table->text('db_store_address')->nullable();
             $table->integer('db_store_status')->nullable();

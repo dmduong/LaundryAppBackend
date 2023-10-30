@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterAccountRequest;
+use App\Http\Requests\VerifyRequest;
 use App\Http\Resources\AccountResource;
 use App\Services\AccountService;
 use Illuminate\Http\Request;
@@ -29,9 +31,20 @@ class AccountController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(RegisterAccountRequest $request)
     {
-        //
+        $result = $this->accountService->create($request->validated());
+
+        return response()->json($result, Response::HTTP_CREATED);
+    }
+
+    public function verify(VerifyRequest $request)
+    {
+        $this->accountService->verify($request->validated());
+
+        return response()->json([
+            'message' => 'Xác thực tài khoản thành công.'
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -84,6 +97,10 @@ class AccountController extends Controller
     public function logout(Request $request)
     {
         $this->accountService->logout($request->user()->account_id);
+
+        $request->setUserResolver(function () {
+            return null;
+        });
 
         return response()->json([
             'status' => 200,

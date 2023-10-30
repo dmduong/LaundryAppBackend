@@ -60,8 +60,7 @@ class StoreService
 
         if (is_null($result)) {
             throw new ErrorsException(
-                "The store not found.",
-                'store_not_found'
+                "The store not found."
             );
         }
 
@@ -74,8 +73,7 @@ class StoreService
 
         if (is_null($store)) {
             throw new ErrorsException(
-                'The store not found',
-                'store_not_found'
+                'The store not found'
             );
         }
 
@@ -88,8 +86,7 @@ class StoreService
 
         if (is_null($store)) {
             throw new ErrorsException(
-                'The store not found',
-                'store_not_found'
+                'The store not found'
             );
         }
 
