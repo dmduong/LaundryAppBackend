@@ -22,4 +22,9 @@ class RoleRepository extends EloquentRepository implements RoleEloquentRepositor
             $query->where('name', 'LIKE', '%' . $conditions['name'] . '%');
         });
     }
+
+    public function findByName($name)
+    {
+        return $this->model->findByName($name);
+    }
 }

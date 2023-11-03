@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
@@ -13,6 +14,7 @@ class AccountModel extends Authenticatable implements JWTSubject
 {
     use HasFactory, HasApiTokens;
     use SoftDeletes;
+    use HasRoles;
 
     protected $table = 'accounts';
 
@@ -24,6 +26,8 @@ class AccountModel extends Authenticatable implements JWTSubject
     protected $primaryKey = 'id';
     protected $username = 'db_account_name';
     public $timestamps = true;
+
+    public $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
