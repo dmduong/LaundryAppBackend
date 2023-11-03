@@ -53,8 +53,9 @@ Route::prefix(config('app.version'))->group(function () {
             Route::get('{role_id}', 'show');
             Route::put('{role_id}', 'update');
             Route::delete('{role_id}', 'destroy');
-            route::get('{role_id}/has-permission', 'roleHasPermission');
-            route::post('{role_id}/assign-permission', 'roleAssignPermission');
+            Route::get('{role_id}/has-permission', 'roleHasPermission');
+            Route::post('{role_id}/assign-permission', 'roleAssignPermission');
+            Route::post('/{role_id}/assign-account', 'roleAssignAccount');
         });
 
         Route::controller(PermissionController::class)->prefix('permissions')->group(function () {

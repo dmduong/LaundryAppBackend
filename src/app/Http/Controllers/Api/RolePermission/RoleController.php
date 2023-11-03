@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\RolePermission;
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RolePermission\AssignPermissionRequest;
+use App\Http\Requests\RolePermission\RoleAssignAccountRequest;
 use App\Http\Requests\RolePermission\SearchRoleRequest;
 use App\Http\Requests\RolePermission\UpdateRoleRequest;
 use App\Http\Resources\RoleHasPermissionResource;
@@ -99,6 +100,22 @@ class RoleController extends Controller
         return response()->json([
             'stautus' => 200,
             'message' => "Assign role to permission successfull !"
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * Thực hiện thêm tài khoản có vai trò.
+     * 
+     * @param RoleAssignAccountRequest $request
+     * @param int $roleId
+     * @return object
+     */
+    public function roleAssignAccount(RoleAssignAccountRequest $request, $roleId)
+    {
+        $this->roleService->roleAssignAccount($request->validated(), $roleId);
+
+        return response()->json([
+            'message' => 'Tài khoản đã được cập nhật vai trò thành công.'
         ], Response::HTTP_OK);
     }
 }
