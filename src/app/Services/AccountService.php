@@ -188,6 +188,10 @@ class AccountService
             ]);
 
             // TODO: Thực hiện phân quyền người dùng.
+
+            // NOTE: reset cached roles and permissions
+            app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
             $roleAdmin = RoleEnum::Admin;
 
             $role = $this->roleEloquentRepository->findByName($roleAdmin);
