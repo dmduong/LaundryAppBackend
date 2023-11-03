@@ -3,11 +3,13 @@ namespace App\Services;
 
 use App\Enums\ActiveAccountEnum;
 use App\Enums\EmployeeStatusEnum;
+use App\Enums\RoleEnum;
 use App\Enums\StatusAccountEnums;
 use App\Enums\StatusStoresEnums;
 use App\Exceptions\ErrorsException;
 use App\Interfaces\AccountEloquentRepositoryInterFace;
 use App\Interfaces\EmployeeEloquentRepositoryInterface;
+use App\Interfaces\RoleEloquentRepositoryInterface;
 use App\Interfaces\StoreEloquentRepositoryInterface;
 use App\Mail\SendEmail;
 use App\Traits\UniqueCodeTrait;
@@ -20,6 +22,7 @@ class AccountService
 {
     use UniqueCodeTrait;
     protected StoreEloquentRepositoryInterface $storeEloquentRepository;
+    protected RoleEloquentRepositoryInterface $roleEloquentRepository;
     protected AccountEloquentRepositoryInterFace $accountEloquentRepository;
     protected EmployeeEloquentRepositoryInterface $employeeEloquentRepository;
 
@@ -27,10 +30,12 @@ class AccountService
         StoreEloquentRepositoryInterface $storeEloquentRepository,
         EmployeeEloquentRepositoryInterface $employeeEloquentRepository,
         AccountEloquentRepositoryInterFace $accountEloquentRepository,
+        RoleEloquentRepositoryInterface $roleEloquentRepository,
     ) {
         $this->storeEloquentRepository = $storeEloquentRepository;
         $this->accountEloquentRepository = $accountEloquentRepository;
         $this->employeeEloquentRepository = $employeeEloquentRepository;
+        $this->roleEloquentRepository = $roleEloquentRepository;
     }
 
     public function create($conditions)
@@ -146,9 +151,19 @@ class AccountService
         ]);
     }
 
-    public function verify($conditions)
+    /**
+     * Thực hiện xác thực người dùng.
+     * Thực hiện phân quyền người dùng.
+     * 
+     * @param array $conditions
+     * @throws ErrorsException
+     * @return void
+     */
+
+    public function verify($conditions): void
     {
         DB::transaction(function () use ($conditions) {
+            // TODO: Thực hiện xác thực người dùng.
             $account = $this->accountEloquentRepository->find($conditions['db_account_id']);
 
             if (is_null($account->db_account_code)) {
@@ -171,6 +186,24 @@ class AccountService
             $account->employee->store()->update([
                 'db_store_status' => StatusStoresEnums::Active,
             ]);
+
+            // TODO: Thực hiện phân quyền người dùng.
+            $roleAdmin = RoleEnum::Admin;
+
+            $role = $this->roleEloquentRepository->findByName($roleAdmin);
+
+            if (is_null($role)) {
+                throw new ErrorsException("Không tìm thấy tên quyền phù hợp.");
+            }
+
+            // NOTE: Danh sách role có permissions.
+            $roleHasPermissions = $role->permissions->pluck('name');
+
+            // NOTE: Thêm người dùng có role.
+            $account->syncRoles($role->name);
+
+            // NOTE: Thêm người dùng có permissions theo role.
+            $account->syncPermissions($roleHasPermissions);
         });
     }
 

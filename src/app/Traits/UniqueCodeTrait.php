@@ -24,8 +24,7 @@ trait UniqueCodeTrait
 
     public function codeNumber()
     {
-        $datePart = now()->format('ymdhis');
-        return $datePart . rand(10000, 99999);
+        return uniqid('', true);
     }
 
     public function codeActiveAccount()

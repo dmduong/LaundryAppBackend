@@ -25,7 +25,7 @@ class EmployeeModelFactory extends Factory
 
         $year = '199' . rand(1, 9);
         return [
-            'db_store_id' => $store_id->id,
+            'db_store_id' => null,
             'db_employee_number' => $this->codeNumber(),
             'db_employee_name' => fake()->firstName() . ' ' . fake()->lastName(),
             'db_employee_gender' => rand(1, 2),

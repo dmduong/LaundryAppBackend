@@ -38,6 +38,12 @@ class AccountController extends Controller
         return response()->json($result, Response::HTTP_CREATED);
     }
 
+    /**
+     * Thực hiện xác thực người dùng.
+     * 
+     * @param $request
+     * @return mixed
+     */
     public function verify(VerifyRequest $request)
     {
         $this->accountService->verify($request->validated());

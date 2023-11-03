@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -17,9 +18,9 @@ class DatabaseSeeder extends Seeder
         // reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $roles = ['admin', 'employee', 'customer'];
+        $roles = RoleEnum::Roles();
 
-        $permissions = ['view', 'create', 'update', 'delete'];
+        $permissions = ['view', 'create', 'update', 'delete', 'action'];
 
         collect($roles)->map(fn($name) => DB::table('roles')->insert([
             'name' => $name,
